@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammed Abdu Rahman C | CSE Student</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+    --bg:#1e1e2e;
+    --panel:#262638;
+    --panel-2:#2d2d42;
+    --border:#3a3a52;
+    --text:#cdd6f4;
+    --muted:#8b8ba7;
+    --blue:#89b4fa;
+    --green:#a6e3a1;
+    --peach:#fab387;
+    --red:#f38ba8;
+    --mauve:#cba6f7;
+    --yellow:#f9e2af;
+}
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+}
+code, .mono{ font-family:'JetBrains Mono',monospace; }
+::selection{ background:var(--mauve); color:var(--bg); }
+
+a{ color:inherit; }
+
+.container{
+    max-width:960px;
+    margin:auto;
+    padding:0 24px;
+}
+
+/* ===== Tab bar nav ===== */
+.tabbar{
+    display:flex;
+    overflow-x:auto;
+    background:#181825;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+.tabbar a{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 20px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--muted);
+    border-right:1px solid var(--border);
+    white-space:nowrap;
+    transition:.2s;
+    border-top:2px solid transparent;
+}
+.tabbar a .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:currentColor;
+    opacity:.5;
+}
+.tabbar a:hover{
+    color:var(--text);
+    background:var(--panel);
+}
+.tabbar a.active{
+    color:var(--blue);
+    background:var(--bg);
+    border-top:2px solid var(--blue);
+}
+
+/* ===== Hero ===== */
+.hero{
+    display:flex;
+    align-items:center;
+    gap:48px;
+    padding:64px 0;
+    flex-wrap:wrap;
+}
+.hero-code{
+    flex:1;
+    min-width:300px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 40px -20px rgba(0,0,0,.5);
+}
+.window-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    background:#181825;
+    border-bottom:1px solid var(--border);
+}
+.window-bar span{
+    width:11px; height:11px; border-radius:50%;
+}
+.window-bar span:nth-child(1){ background:#f38ba8; }
+.window-bar span:nth-child(2){ background:#f9e2af; }
+.window-bar span:nth-child(3){ background:#a6e3a1; }
+.window-bar .filename{
+    margin-left:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+}
+.code-block{
+    padding:22px 24px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:14.5px;
+    overflow-x:auto;
+}
+.code-block .ln{ color:var(--muted); }
+.k{ color:var(--mauve); }
+.v{ color:var(--peach); }
+.s{ color:var(--green); }
+.p{ color:var(--text); }
+.cm{ color:var(--muted); font-style:italic; }
+.cursor{
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--blue);
+    animation:blink 1.1s steps(1) infinite;
+    vertical-align:middle;
+}
+@keyframes blink{ 50%{ opacity:0; } }
+
+.hero-photo{
+    flex-shrink:0;
+    position:relative;
+}
+.hero-photo img{
+    width:180px;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+    border:1px solid var(--border);
+    filter:grayscale(15%);
+}
+.hero-photo .tag{
+    position:absolute;
+    bottom:-14px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--bg);
+    border:1px solid var(--border);
+    color:var(--green);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    padding:4px 10px;
+    border-radius:6px;
+    white-space:nowrap;
+}
+
+.btn-row{ margin-top:18px; }
+.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 22px;
+    margin:6px 8px 6px 0;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+    font-family:'JetBrains Mono',monospace;
+    border:1px solid var(--border);
+    transition:.2s;
+}
+.btn:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+.github{ background:var(--panel-2); color:var(--text); }
+.github:hover{ border-color:var(--blue); color:var(--blue); }
+.resume{ background:var(--blue); color:#181825; border-color:var(--blue); }
+.resume:hover{ background:var(--text); }
+
+/* ===== Sections ===== */
+.section{
+    padding:48px 0;
+    border-top:1px solid var(--border);
+}
+.section-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:28px;
+}
+.section-head .path{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--muted);
+    font-size:13px;
+}
+.section-head h2{
+    margin:0;
+    font-size:24px;
+    color:var(--text);
+}
+.section p{ color:var(--text); }
+
+/* ===== Skills as JSON cards ===== */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:18px;
+}
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:18px 20px;
+    transition:.25s;
+}
+.card:hover{
+    transform:translateY(-4px);
+    border-color:var(--blue);
+}
+.card h3{
+    margin:0 0 10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    color:var(--yellow);
+}
+.card ul{
+    list-style:none;
+    margin:0; padding:0;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13.5px;
+}
+.card li{ padding:3px 0; color:var(--text); }
+.card li::before{ content:"▸ "; color:var(--blue); }
+
+/* ===== Projects ===== */
+.project{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    transition:.25s;
+}
+.project:hover{
+    transform:translateY(-4px);
+    border-color:var(--green);
+}
+.project .window-bar .filename{ color:var(--green); }
+.project-body{ padding:18px 20px; }
+.project-body h3{ margin:0 0 8px; font-size:17px; }
+.project-body p{ margin:0 0 10px; color:var(--muted); font-size:14.5px; }
+.stack{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--peach);
+}
+
+/* ===== Education as git log ===== */
+.git-log{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px 22px;
+}
+.git-log .commit{
+    display:flex;
+    gap:14px;
+    padding:10px 0;
+    border-bottom:1px dashed var(--border);
+}
+.git-log .commit:last-child{ border-bottom:none; }
+.git-log .hash{ color:var(--peach); }
+.git-log .branch{ color:var(--mauve); }
+.git-log .msg{ color:var(--text); }
+
+.edu-block{
+    margin-bottom:20px;
+}
+.edu-block h3{ margin:0 0 4px; font-size:17px; }
+.edu-block .meta{ color:var(--muted); font-size:14px; }
+
+/* ===== Contact as terminal ===== */
+.terminal{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px 22px;
+}
+.terminal .line{ margin:6px 0; }
+.terminal .prompt{ color:var(--green); }
+.terminal .cmd{ color:var(--text); }
+.terminal .out{ color:var(--muted); }
+.terminal .out a{ color:var(--blue); text-decoration:none; }
+.terminal .out a:hover{ text-decoration:underline; }
+
+footer{
+    text-align:center;
+    padding:28px 0 40px;
+    color:var(--muted);
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+}
+
+@media (prefers-reduced-motion: reduce){
+    .cursor{ animation:none; }
+}
+
+@media(max-width:700px){
+    .hero{ flex-direction:column-reverse; text-align:center; padding:40px 0; }
+    .hero-photo{ margin-bottom:20px; }
+    .section-head{ flex-direction:column; gap:4px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="tabbar">
+<a href="#about" class="active"><span class="dot"></span>about.md</a>
+<a href="#skills"><span class="dot"></span>skills.json</a>
+<a href="#projects"><span class="dot"></span>projects.js</a>
+<a href="#education"><span class="dot"></span>education.yml</a>
+<a href="#contact"><span class="dot"></span>contact.sh</a>
+</nav>
+
+<div class="container">
+
+<section class="hero">
+<div class="hero-code">
+<div class="window-bar">
+<span></span><span></span><span></span>
+<span class="filename">profile.js</span>
+</div>
+<div class="code-block">
+<div><span class="k">const</span> <span class="p">developer</span> <span class="p">=</span> {</div>
+<div style="padding-left:24px"><span class="v">name</span>: <span class="s">"Muhammed Abdu Rahman C"</span>,</div>
+<div style="padding-left:24px"><span class="v">role</span>: <span class="s">"CSE Student"</span>,</div>
+<div style="padding-left:24px"><span class="v">focus</span>: [<span class="s">"Frontend"</span>, <span class="s">"Problem Solving"</span>],</div>
+<div style="padding-left:24px"><span class="v">building</span>: <span class="s">"practical digital projects"</span>,</div>
+<div style="padding-left:24px"><span class="v">status</span>: <span class="s">"open to opportunities"</span></div>
+<div>}<span class="cursor"></span></div>
+</div>
+</div>
+<div class="hero-photo">
+<img src="69646760473.jpg.jpeg" alt="Muhammed Abdu Rahman C Profile">
+<span class="tag">// developer.name</span>
+</div>
+</section>
+
+<div class="btn-row">
+<a class="btn github" href="YOUR_GITHUB_LINK" target="_blank">&lt;/&gt; View GitHub</a>
+<a class="btn resume" href="resume.pdf">↓ Download Resume</a>
+</div>
+
+<section class="section" id="about">
+<div class="section-head"><span class="path">~/</span><h2>About Me</h2></div>
+<p>
+I'm a second-year BTech Computer Science Engineering student at Jawaharlal College of Engineering and Technology (JCET), Ottapalam.
+I'm interested in web development, programming, and software engineering, and I enjoy solving problems and building useful applications.
+</p>
+</section>
+
+<section class="section" id="skills">
+<div class="section-head"><span class="path">~/</span><h2>Skills</h2></div>
+<div class="cards">
+<div class="card">
+<h3>"frontend"</h3>
+<ul>
+<li>HTML</li>
+<li>CSS</li>
+<li>JavaScript</li>
+<li>Responsive Design</li>
+</ul>
+</div>
+<div class="card">
+<h3>"programming"</h3>
+<ul>
+<li>C Programming</li>
+<li>Python</li>
+<li>Problem Solving</li>
+</ul>
+</div>
+<div class="card">
+<h3>"tools"</h3>
+<ul>
+<li>Git</li>
+<li>GitHub</li>
+<li>VS Code</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="section" id="projects">
+<div class="section-head"><span class="path">~/</span><h2>Projects</h2></div>
+<div class="cards">
+<div class="project">
+<div class="window-bar">
+<span></span><span></span><span></span>
+<span class="filename">portfolio/</span>
+</div>
+<div class="project-body">
+<h3>Personal Portfolio Website</h3>
+<p>A responsive portfolio website to showcase my skills and projects.</p>
+<div class="stack">HTML · CSS · JavaScript</div>
+</div>
+</div>
+<div class="project">
+<div class="window-bar">
+<span></span><span></span><span></span>
+<span class="filename">practice/</span>
+</div>
+<div class="project-body">
+<h3>College Coding Projects</h3>
+<p>Practice projects developed while learning programming concepts.</p>
+<div class="stack">C · Python</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="education">
+<div class="section-head"><span class="path">~/</span><h2>Education</h2></div>
+
+<div class="edu-block">
+<h3>BTech Computer Science Engineering</h3>
+<p class="meta">Jawaharlal College of Engineering and Technology (JCET), Ottapalam · 2025 – 2029</p>
+</div>
+
+<div class="git-log">
+<div class="commit"><span class="hash">learning</span><span class="branch">→</span><span class="msg">JavaScript</span></div>
+<div class="commit"><span class="hash">learning</span><span class="branch">→</span><span class="msg">Data Structures</span></div>
+<div class="commit"><span class="hash">learning</span><span class="branch">→</span><span class="msg">Web Development</span></div>
+<div class="commit"><span class="hash">learning</span><span class="branch">→</span><span class="msg">Software Engineering</span></div>
+</div>
+</section>
+
+<section class="section" id="contact">
+<div class="section-head"><span class="path">~/</span><h2>Contact</h2></div>
+<div class="terminal">
+<div class="line"><span class="prompt">$</span> <span class="cmd">cat contact.txt</span></div>
+<div class="line out">email: muhammedabdurahmanc01052006@gmail.com</div>
+<div class="line out">github: <a href="YOUR_GITHUB_LINK">add your link</a></div>
+<div class="line out">linkedin: <a href="YOUR_LINKEDIN_LINK">add your link</a></div>
+<div class="line"><span class="prompt">$</span> <span class="cursor"></span></div>
+</div>
+</section>
+
+</div>
+
+<footer>built by Muhammed Abdu Rahman C</footer>
+
+<script>
+const links = document.querySelectorAll('.tabbar a');
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+    let current = sections[0].id;
+    sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    links.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+});
+</script>
+
+</body>
+</html>
