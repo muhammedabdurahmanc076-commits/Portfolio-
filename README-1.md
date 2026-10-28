@@ -70,4 +70,4 @@ Loaded from Google Fonts: [Inter](https://fonts.google.com/specimen/Inter) and [
 
 ## License
 
-This is a personal portfolio. Please don't copy the personal content (text, photo, projects); feel free to take inspiration from the layout.
+This is a personal portfolio. Please don't copy the personal content (text, photo, projects); feel free to take inspiration from the layout.j
